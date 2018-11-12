@@ -4,12 +4,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UserModel {
-    public String name;
-    public String surname;
-    public String username;
-    public Integer age;
-    public String email;
-    public ArrayList<Image> imagesArray;
+    private String name;
+    private String surname;
+    private String username;
+    private Integer age;
+    private String email;
+    private ArrayList<Image> imagesArray;
 
     public UserModel(String name, String surname, String username, Integer age, String email) {
         this.name = name;
