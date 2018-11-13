@@ -18,7 +18,9 @@ public class UserModel {
         this.age = age;
         this.email = email;
         this.imagesArray = new ArrayList<>();
+    }
 
+    public UserModel() {
     }
 
     public String getName() {
