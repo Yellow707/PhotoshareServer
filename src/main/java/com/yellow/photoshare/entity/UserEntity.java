@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="Users")
@@ -29,6 +30,15 @@ public class UserEntity {
 
     @Column(name = "Email", length = 128, nullable = false)
     private String email;
+
+    public UserEntity(String name, String surname, String username, Integer age, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.username= username;
+        this.age = age;
+        this.email = email;
+//        this.imagesArray = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
