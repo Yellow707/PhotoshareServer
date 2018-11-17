@@ -1,5 +1,7 @@
 package com.yellow.photoshare;
 
+import com.yellow.photoshare.dao.UserDAO;
+import com.yellow.photoshare.service.UserService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -58,8 +60,8 @@ public class PhotoshareServerApplication {
 
 
         // Fix Postgres JPA Error:
-        // Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
-        // properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
+//         Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
+         properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
 
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
@@ -81,4 +83,22 @@ public class PhotoshareServerApplication {
 
         return transactionManager;
     }
+
+//    @Autowired
+//    @Bean(name = "userDAO")
+//    public UserDAO userDao (SessionFactory sessionFactory){
+//        UserDAO userDAO = new UserDAO();
+//        userDAO.setSessionFactory(sessionFactory);
+//
+//        return userDAO;
+//    }
+//
+//    @Autowired
+//    @Bean(name = "userService")
+//    public UserService userService (UserDAO userDAO){
+//        UserService userService = new UserService();
+//        userService.setPersonDAO(userDAO);
+//
+//        return userService;
+//    }
 }
