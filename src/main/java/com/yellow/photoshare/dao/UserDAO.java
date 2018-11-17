@@ -6,36 +6,34 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class UserDAO implements UserDaoInt {
+public class UserDAO implements IUserDao {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
 
     private SessionFactory sessionFactory;
 
-    @Autowired(required=true)
-//    @Qualifier(value="userService")
+    @Autowired
     public void setSessionFactory(SessionFactory sf){
         this.sessionFactory = sf;
     }
 
     @Override
-    public void addPerson(UserEntity p) {
+    public void addPerson(UserEntity userEntity) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.persist(p);
-        logger.info("Person saved successfully, Person Details="+p);
+        session.persist(userEntity);
+        logger.info("Person saved successfully, Person Details="+ userEntity);
     }
 
     @Override
-    public void updatePerson(UserEntity p) {
+    public void updatePerson(UserEntity userEntity) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.update(p);
-        logger.info("Person updated successfully, Person Details="+p);
+        session.update(userEntity);
+        logger.info("Person updated successfully, Person Details="+ userEntity);
     }
 
     @SuppressWarnings("unchecked")
@@ -43,8 +41,8 @@ public class UserDAO implements UserDaoInt {
     public List<UserEntity> listPersons() {
         Session session = this.sessionFactory.getCurrentSession();
         List<UserEntity> personsList = session.createQuery("from Person").list();
-        for(UserEntity p : personsList){
-            logger.info("Person List::"+p);
+        for(UserEntity userEntity : personsList){
+            logger.info("Person List::"+ userEntity);
         }
         return personsList;
     }
@@ -52,19 +50,19 @@ public class UserDAO implements UserDaoInt {
     @Override
     public UserEntity getPersonById(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        UserEntity p = (UserEntity) session.load(UserEntity.class, new Integer(id));
-        logger.info("Person loaded successfully, Person details="+p);
-        return p;
+        UserEntity userEntity = session.load(UserEntity.class, new Integer(id));
+        logger.info("Person loaded successfully, Person details="+ userEntity);
+        return userEntity;
     }
 
     @Override
     public void removePerson(int id) {
         Session session = this.sessionFactory.getCurrentSession();
-        UserEntity p = (UserEntity) session.load(UserEntity.class, new Integer(id));
-        if(null != p){
-            session.delete(p);
+        UserEntity userEntity = session.load(UserEntity.class, new Integer(id));
+        if(null != userEntity){
+            session.delete(userEntity);
         }
-        logger.info("Person deleted successfully, person details="+p);
+        logger.info("Person deleted successfully, person details="+ userEntity);
     }
 
 }
