@@ -1,9 +1,13 @@
 package com.yellow.photoshare.entity;
 
 
+import org.hibernate.search.annotations.Field;
+import org.springframework.stereotype.Indexed;
+
 import javax.persistence.*;
 
 @Entity
+@Indexed
 @Table(name="Users")
 public class UserEntity {
     @Id
@@ -11,18 +15,23 @@ public class UserEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Field
     @Column(name = "Name", nullable = false)
     private String name;
 
+    @Field
     @Column(name = "Surname", nullable = false)
     private String surname;
 
     @Column(name = "Username", nullable = false)
+    @Field
     private String username;
 
+    @Field
     @Column(name = "Age", nullable = false)
     private Integer age;
 
+    @Field
     @Column(name = "Email", nullable = false)
     private String email;
 

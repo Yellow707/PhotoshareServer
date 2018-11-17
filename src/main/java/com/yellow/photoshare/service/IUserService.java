@@ -9,7 +9,7 @@ public interface IUserService {
     void addPerson(UserEntity userEntity);
     void updatePerson(UserEntity userEntity);
     List<UserEntity> listPersons();
-    UserEntity getPersonById(int id);
+    UserEntity getPersonByUsername(String username);
     void removePerson(int id);
 
 }

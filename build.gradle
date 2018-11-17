@@ -36,6 +36,10 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.2.RELEASE'
     // https://mvnrepository.com/artifact/org.springframework/spring-orm
     compile group: 'org.springframework', name: 'spring-orm', version: '5.1.2.RELEASE'
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm
+    compile group: 'org.hibernate', name: 'hibernate-search-orm', version: '5.10.4.Final'
+
+
 
 
 

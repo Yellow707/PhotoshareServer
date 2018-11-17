@@ -38,8 +38,8 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public UserEntity getPersonById(int id) {
-        return this.personDAO.getPersonById(id);
+    public UserEntity getPersonByUsername(String username) {
+        return this.personDAO.getPersonByUsername(username);
     }
 
     @Override

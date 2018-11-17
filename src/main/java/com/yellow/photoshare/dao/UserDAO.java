@@ -3,6 +3,10 @@ package com.yellow.photoshare.dao;
 import com.yellow.photoshare.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +52,37 @@ public class UserDAO implements IUserDao {
     }
 
     @Override
-    public UserEntity getPersonById(int id) {
+    public UserEntity getPersonByUsername(String username) {
         Session session = this.sessionFactory.getCurrentSession();
-        UserEntity userEntity = session.load(UserEntity.class, new Integer(id));
-        logger.info("Person loaded successfully, Person details="+ userEntity);
-        return userEntity;
+
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
+//        fullTextSession.createIndexer().start();
+
+
+        Transaction tx = fullTextSession.beginTransaction();
+
+// create native Lucene query using the query DSL
+// alternatively you can write the Lucene query using the Lucene query parser
+// or the Lucene programmatic API. The Hibernate Search DSL is recommended though
+        QueryBuilder qb = fullTextSession.getSearchFactory()
+                .buildQueryBuilder().forEntity(UserEntity.class).get();
+        org.apache.lucene.search.Query query = qb
+                .keyword()
+                .onFields("Username")
+                .matching(username)
+                .createQuery();
+
+// wrap Lucene query in a org.hibernate.Query
+        org.hibernate.Query hibQuery =
+                fullTextSession.createFullTextQuery(query, UserEntity.class);
+
+// execute search
+        List<UserEntity> result = hibQuery.list();
+
+        tx.commit();
+        session.close();
+
+        return result.get(0);
     }
 
     @Override

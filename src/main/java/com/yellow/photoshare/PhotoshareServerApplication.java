@@ -59,9 +59,15 @@ public class PhotoshareServerApplication {
                 env.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
 
 
+
         // Fix Postgres JPA Error:
 //         Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented.
          properties.put("hibernate.temp.use_jdbc_metadata_defaults",false);
+         properties.put("hibernate.search.default.directory_provider", env.getProperty("spring.jpa.properties.hibernate.search.default.directory_provider"));
+         properties.put("hibernate.search.default.indexBase", env.getProperty("spring.jpa.properties.hibernate.search.default.indexBase"));
+
+
+
 
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
@@ -84,21 +90,5 @@ public class PhotoshareServerApplication {
         return transactionManager;
     }
 
-//    @Autowired
-//    @Bean(name = "userDAO")
-//    public UserDAO userDao (SessionFactory sessionFactory){
-//        UserDAO userDAO = new UserDAO();
-//        userDAO.setSessionFactory(sessionFactory);
-//
-//        return userDAO;
-//    }
-//
-//    @Autowired
-//    @Bean(name = "userService")
-//    public UserService userService (UserDAO userDAO){
-//        UserService userService = new UserService();
-//        userService.setPersonDAO(userDAO);
-//
-//        return userService;
-//    }
+
 }
