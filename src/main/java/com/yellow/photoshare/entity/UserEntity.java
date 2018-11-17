@@ -11,19 +11,19 @@ public class UserEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "Name", length = 50, nullable = false)
+    @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(name = "Surname", length = 50, nullable = false)
+    @Column(name = "Surname", nullable = false)
     private String surname;
 
-    @Column(name = "Username", length = 50, nullable = false)
+    @Column(name = "Username", nullable = false)
     private String username;
 
     @Column(name = "Age", nullable = false)
     private Integer age;
 
-    @Column(name = "Email", length = 128, nullable = false)
+    @Column(name = "Email", nullable = false)
     private String email;
 
     public Long getId() {

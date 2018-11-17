@@ -4,7 +4,10 @@ import com.yellow.photoshare.entity.UserEntity;
 import com.yellow.photoshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class RegistrationController {
@@ -21,8 +24,16 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String registrationController (@RequestBody UserEntity userEntity) {
         String name = userEntity.getName();
-            this.userService.addPerson(userEntity);
+
+        this.userService.addPerson(userEntity);
+
         return "Hello, " + name;
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<UserEntity> listPersons() {
+        List<UserEntity> userEntityList = this.userService.listPersons();
+        return userEntityList;
     }
 
 

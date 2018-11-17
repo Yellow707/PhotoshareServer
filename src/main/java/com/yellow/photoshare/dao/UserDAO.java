@@ -40,7 +40,7 @@ public class UserDAO implements IUserDao {
     @Override
     public List<UserEntity> listPersons() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<UserEntity> personsList = session.createQuery("from Person").list();
+        List<UserEntity> personsList = session.createQuery("FROM UserEntity").list();
         for(UserEntity userEntity : personsList){
             logger.info("Person List::"+ userEntity);
         }
