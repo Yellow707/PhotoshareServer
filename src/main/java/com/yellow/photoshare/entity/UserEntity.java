@@ -6,6 +6,9 @@ import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
 
+
+//import javax.persistence.*;
+
 @Entity
 @Indexed
 @Table(name="Users")

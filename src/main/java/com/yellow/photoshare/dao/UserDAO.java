@@ -6,65 +6,69 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
+import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-public class UserDAO implements IUserDao {
+public class UserDAO  {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
 
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sf){
-        this.sessionFactory = sf;
-    }
 
-    @Override
+//    @Override
     public void addPerson(UserEntity userEntity) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.persist(userEntity);
+//        Session session = this.sessionFactory.getCurrentSession();
+        entityManager.persist(userEntity);
         logger.info("Person saved successfully, Person Details="+ userEntity);
     }
 
-    @Override
+//    @Override
     public void updatePerson(UserEntity userEntity) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.update(userEntity);
+//        Session session = this.sessionFactory.getCurrentSession();
+        entityManager.merge(userEntity);
         logger.info("Person updated successfully, Person Details="+ userEntity);
     }
 
     @SuppressWarnings("unchecked")
-    @Override
+//    @Override
     public List<UserEntity> listPersons() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<UserEntity> personsList = session.createQuery("FROM UserEntity").list();
-        for(UserEntity userEntity : personsList){
-            logger.info("Person List::"+ userEntity);
-        }
-        return personsList;
+//        Session session = this.sessionFactory.getCurrentSession();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
+        Root<UserEntity> rootEntry = cq.from(UserEntity.class);
+        CriteriaQuery<UserEntity> all = cq.select(rootEntry);
+        TypedQuery<UserEntity> allQuery = entityManager.createQuery(all);
+        return allQuery.getResultList();
     }
 
-    @Override
+//    @Override
     public UserEntity getPersonByUsername(String username) {
-        Session session = this.sessionFactory.getCurrentSession();
+//        Session session = this.sessionFactory.getCurrentSession();
 
-        FullTextSession fullTextSession = Search.getFullTextSession(session);
-//        fullTextSession.createIndexer().start();
-
-
-        Transaction tx = fullTextSession.beginTransaction();
+        FullTextEntityManager fullTextEntityManager =
+                org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
+        entityManager.getTransaction().begin();
 
 // create native Lucene query using the query DSL
 // alternatively you can write the Lucene query using the Lucene query parser
 // or the Lucene programmatic API. The Hibernate Search DSL is recommended though
-        QueryBuilder qb = fullTextSession.getSearchFactory()
+        QueryBuilder qb = fullTextEntityManager.getSearchFactory()
                 .buildQueryBuilder().forEntity(UserEntity.class).get();
         org.apache.lucene.search.Query query = qb
                 .keyword()
@@ -72,25 +76,25 @@ public class UserDAO implements IUserDao {
                 .matching(username)
                 .createQuery();
 
-// wrap Lucene query in a org.hibernate.Query
-        org.hibernate.Query hibQuery =
-                fullTextSession.createFullTextQuery(query, UserEntity.class);
+// wrap Lucene query in a javax.persistence.Query
+        javax.persistence.Query persistenceQuery =
+                fullTextEntityManager.createFullTextQuery(query, UserEntity.class);
 
 // execute search
-        List<UserEntity> result = hibQuery.list();
+        List<UserEntity> result = persistenceQuery.getResultList();
 
-        tx.commit();
-        session.close();
+        entityManager.getTransaction().commit();
+        entityManager.close();
 
         return result.get(0);
     }
 
-    @Override
+//    @Override
     public void removePerson(int id) {
-        Session session = this.sessionFactory.getCurrentSession();
-        UserEntity userEntity = session.load(UserEntity.class, new Integer(id));
+//        Session session = this.sessionFactory.getCurrentSession();
+        UserEntity userEntity = entityManager.find(UserEntity.class, new Integer(id));
         if(null != userEntity){
-            session.delete(userEntity);
+            entityManager.remove(userEntity);
         }
         logger.info("Person deleted successfully, person details="+ userEntity);
     }
