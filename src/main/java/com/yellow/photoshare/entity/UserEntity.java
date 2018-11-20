@@ -5,14 +5,13 @@ import org.hibernate.search.annotations.Field;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-
-//import javax.persistence.*;
-
-@Entity
+@Entity(name = "UserEntity")
 @Indexed
 @Table(name="Users")
-public class UserEntity {
+public class UserEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -37,6 +36,10 @@ public class UserEntity {
     @Field
     @Column(name = "Email", nullable = false)
     private String email;
+
+    UserEntity() {
+
+    }
 
     public Long getId() {
         return id;

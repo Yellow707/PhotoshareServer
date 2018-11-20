@@ -23,9 +23,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String registrationController (@RequestBody UserEntity userEntity) {
         String name = userEntity.getName();
-
         this.userService.addPerson(userEntity);
-
         return "Hello, " + name;
     }
 

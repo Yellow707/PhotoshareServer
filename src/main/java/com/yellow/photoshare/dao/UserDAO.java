@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,6 +24,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDAO  {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
@@ -33,22 +35,18 @@ public class UserDAO  {
 
 //    @Override
     public void addPerson(UserEntity userEntity) {
-//        Session session = this.sessionFactory.getCurrentSession();
         entityManager.persist(userEntity);
         logger.info("Person saved successfully, Person Details="+ userEntity);
     }
 
 //    @Override
     public void updatePerson(UserEntity userEntity) {
-//        Session session = this.sessionFactory.getCurrentSession();
         entityManager.merge(userEntity);
         logger.info("Person updated successfully, Person Details="+ userEntity);
     }
 
     @SuppressWarnings("unchecked")
-//    @Override
     public List<UserEntity> listPersons() {
-//        Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
         Root<UserEntity> rootEntry = cq.from(UserEntity.class);
@@ -57,10 +55,7 @@ public class UserDAO  {
         return allQuery.getResultList();
     }
 
-//    @Override
     public UserEntity getPersonByUsername(String username) {
-//        Session session = this.sessionFactory.getCurrentSession();
-
         FullTextEntityManager fullTextEntityManager =
                 org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
         entityManager.getTransaction().begin();
@@ -91,7 +86,6 @@ public class UserDAO  {
 
 //    @Override
     public void removePerson(int id) {
-//        Session session = this.sessionFactory.getCurrentSession();
         UserEntity userEntity = entityManager.find(UserEntity.class, new Integer(id));
         if(null != userEntity){
             entityManager.remove(userEntity);
