@@ -59,6 +59,10 @@ public class RootConfig {
         properties.setProperty("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
         // Fix Postgres JPA Error:
         properties.setProperty("hibernate.jdbc.lob.non_contextual_creation", env.getProperty("spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"));
+
+        properties.setProperty("hibernate.search.default.directory_provider", env.getProperty("spring.jpa.properties.hibernate.search.default.directory_provider"));
+        properties.setProperty("hibernate.search.default.indexBase", env.getProperty("spring.jpa.properties.hibernate.search.default.indexBase"));
+
         return properties;
     }
 }

@@ -36,7 +36,6 @@ public class RegistrationController {
     @RequestMapping("/search")
     public UserEntity search (@RequestParam("username") String username) {
 
-
         UserEntity userEntity = this.userService.getPersonByUsername(username);
 
         return userEntity;
