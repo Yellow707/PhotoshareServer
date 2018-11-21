@@ -10,6 +10,6 @@ public interface IUserService {
     void updatePerson(UserEntity userEntity);
     List<UserEntity> listPersons();
     UserEntity getPersonByUsername(String username);
-    void removePerson(int id);
+    void removePerson(Long id);
 
 }

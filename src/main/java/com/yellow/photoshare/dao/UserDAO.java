@@ -7,7 +7,6 @@ import org.hibernate.search.query.dsl.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,14 +17,13 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-@Transactional
-public class UserDAO  {
+//@Transactional
+public class UserDAO {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
 
     @PersistenceContext
     private EntityManager entityManager;
-
 
 //    @Override
     public void addPerson(UserEntity userEntity) {
@@ -78,8 +76,8 @@ public class UserDAO  {
     }
 
 //    @Override
-    public void removePerson(int id) {
-        UserEntity userEntity = entityManager.find(UserEntity.class, new Integer(id));
+    public void removePerson(Long id) {
+        UserEntity userEntity = entityManager.find(UserEntity.class,id);
         if(null != userEntity){
             entityManager.remove(userEntity);
         }

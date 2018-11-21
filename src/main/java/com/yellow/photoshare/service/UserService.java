@@ -44,7 +44,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public void removePerson(int id) {
+    public void removePerson(Long id) {
         this.userDAO.removePerson(id);
     }
 

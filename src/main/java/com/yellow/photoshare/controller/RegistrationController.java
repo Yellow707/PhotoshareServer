@@ -19,7 +19,6 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-
     @PostMapping("/registration")
     public String registrationController (@RequestBody UserEntity userEntity) {
         String name = userEntity.getName();
@@ -35,10 +34,13 @@ public class RegistrationController {
 
     @RequestMapping("/search")
     public UserEntity search (@RequestParam("username") String username) {
-
         UserEntity userEntity = this.userService.getPersonByUsername(username);
-
         return userEntity;
+    }
+
+    @RequestMapping("/delete")
+    public void delete (@RequestParam("id") Long id) {
+        this.userService.removePerson(id);
     }
 
 

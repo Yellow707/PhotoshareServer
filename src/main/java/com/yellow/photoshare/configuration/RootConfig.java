@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.yellow.photoshare.entity")
+@EnableJpaRepositories
 public class RootConfig {
 
     @Autowired
@@ -28,15 +28,17 @@ public class RootConfig {
         lcemfb.setJpaVendorAdapter(getJpaVendorAdapter());
         lcemfb.setDataSource(getDataSource());
         lcemfb.setPersistenceUnitName("UserEntity");
-        lcemfb.setPackagesToScan("com.yellow.photoshare.entity");
+        lcemfb.setPackagesToScan("com.yellow.photoshare");
         lcemfb.setJpaProperties(additionalProperties());
         return lcemfb;
     }
+
     @Bean
     public JpaVendorAdapter getJpaVendorAdapter() {
         JpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         return adapter;
     }
+
     @Bean
     public DataSource getDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -46,6 +48,7 @@ public class RootConfig {
         dataSource.setPassword(env.getProperty("spring.datasource.password"));
         return dataSource;
     }
+
     @Bean
     public PlatformTransactionManager txManager(){
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager(
@@ -59,10 +62,6 @@ public class RootConfig {
         properties.setProperty("hibernate.show_sql", env.getProperty("spring.jpa.show-sql"));
         // Fix Postgres JPA Error:
         properties.setProperty("hibernate.jdbc.lob.non_contextual_creation", env.getProperty("spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"));
-
-        properties.setProperty("hibernate.search.default.directory_provider", env.getProperty("spring.jpa.properties.hibernate.search.default.directory_provider"));
-        properties.setProperty("hibernate.search.default.indexBase", env.getProperty("spring.jpa.properties.hibernate.search.default.indexBase"));
-
         return properties;
     }
 }

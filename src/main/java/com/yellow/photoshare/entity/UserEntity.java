@@ -1,15 +1,15 @@
 package com.yellow.photoshare.entity;
 
-
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.NumericField;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "UserEntity")
-@Indexed
 @Table(name="Users")
+@Indexed
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -17,29 +17,26 @@ public class UserEntity implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Field
     @Column(name = "Name", nullable = false)
+    @Field
     private String name;
 
-    @Field
     @Column(name = "Surname", nullable = false)
+    @Field
     private String surname;
 
     @Column(name = "Username", nullable = false)
     @Field
     private String username;
 
+    @NumericField
     @Field
     @Column(name = "Age", nullable = false)
     private Integer age;
 
-    @Field
     @Column(name = "Email", nullable = false)
+    @Field
     private String email;
-
-    UserEntity() {
-
-    }
 
     public Long getId() {
         return id;
