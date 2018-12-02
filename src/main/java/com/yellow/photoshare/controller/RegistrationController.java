@@ -4,6 +4,7 @@ import com.yellow.photoshare.entity.UserEntity;
 import com.yellow.photoshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class RegistrationController {
     public void delete (@RequestParam("id") Long id) {
         this.userService.removePerson(id);
     }
+
 
 
 
