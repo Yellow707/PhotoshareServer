@@ -43,20 +43,6 @@ public class RegistrationController {
         this.userService.removePerson(id);
     }
 
-    @RequestMapping("/update")
-    public void update (@RequestParam("id") Long id) {
-        this.userService.removePerson(id);
-    }
-
-    @RequestMapping(value = "/secure")
-    public String secure() {
-        return "You are authorize to access this page. This is secure page. ";
-    }
-    @RequestMapping(value = "/home")
-    public String home() {
-        return "This is public page. No need of authentication";
-    }
-
 
 
 
