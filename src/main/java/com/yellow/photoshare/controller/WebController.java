@@ -1,9 +1,9 @@
 package com.yellow.photoshare.controller;
 
+import com.yellow.photoshare.entity.UserEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WebController {
@@ -20,9 +20,11 @@ public class WebController {
         return "registration";
     }
 
-    @GetMapping("/registrationdone")
-    public String registrationRequest() {
-
+    @PostMapping("/registration/done")
+    public @ResponseBody String registrationRequest(UserEntity userEntity) {
+        String name = userEntity.getName();
+//        this.userService.addPerson(userEntity);
+        System.out.println("Hello, " + name);
         return "registration";
     }
 
