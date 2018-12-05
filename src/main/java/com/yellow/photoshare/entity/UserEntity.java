@@ -38,6 +38,10 @@ public class UserEntity implements Serializable {
     @Field
     private String email;
 
+    @Column(name = "Password", nullable = false)
+    @Field
+    private String password;
+
     public Long getId() {
         return id;
     }
@@ -84,5 +88,13 @@ public class UserEntity implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
