@@ -1,15 +1,19 @@
 package com.yellow.photoshare.entity;
 
+import com.yellow.photoshare.validation.PasswordMatches;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.NumericField;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity(name = "UserEntity")
 @Table(name="Users")
 @Indexed
+@PasswordMatches
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -19,28 +23,41 @@ public class UserEntity implements Serializable {
 
     @Column(name = "Name", nullable = false)
     @Field
+    @NotNull
+    @NotEmpty
     private String name;
 
     @Column(name = "Surname", nullable = false)
     @Field
+    @NotNull
+    @NotEmpty
     private String surname;
 
     @Column(name = "Username", nullable = false)
     @Field
+    @NotNull
+    @NotEmpty
     private String username;
 
     @NumericField
     @Field
     @Column(name = "Age", nullable = false)
+    @NotNull
+    @NotEmpty
     private Integer age;
 
     @Column(name = "Email", nullable = false)
     @Field
+    @NotNull
+    @NotEmpty
     private String email;
 
     @Column(name = "Password", nullable = false)
     @Field
+    @NotNull
+    @NotEmpty
     private String password;
+    private String matchingPassword;
 
     public Long getId() {
         return id;
@@ -96,5 +113,13 @@ public class UserEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
     }
 }

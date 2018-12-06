@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 public class WebController {
 
@@ -21,7 +23,7 @@ public class WebController {
     }
 
     @PostMapping("/registration/done")
-    public @ResponseBody String registrationRequest(UserEntity userEntity) {
+    public @ResponseBody String registrationRequest(@Valid UserEntity userEntity) {
         String name = userEntity.getName();
 //        this.userService.addPerson(userEntity);
         System.out.println("Hello, " + name);
