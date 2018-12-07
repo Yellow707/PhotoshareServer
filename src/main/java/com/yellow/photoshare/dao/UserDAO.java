@@ -26,9 +26,20 @@ public class UserDAO {
     private EntityManager entityManager;
 
 //    @Override
-    public void addPerson(UserEntity userEntity) {
+    public boolean addPerson(UserEntity userEntity) {
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<String> cq = cb.createQuery(String.class);
+        Root<UserEntity> rootEntry = cq.from(UserEntity.class);
+        CriteriaQuery<String> email = cq.select(rootEntry.get("email"));
+        TypedQuery<String> allEmail = entityManager.createQuery(email);
+        List emailList = allEmail.getResultList();
+        if (emailList.contains(userEntity.getEmail())) {
+            return false;
+        }
         entityManager.persist(userEntity);
         logger.info("Person saved successfully, Person Details="+ userEntity);
+        return true;
     }
 
 //    @Override

@@ -42,8 +42,8 @@ public class UserEntity implements Serializable {
     @NumericField
     @Field
     @Column(name = "Age", nullable = false)
-    @NotNull
-    @NotEmpty
+//    @NotNull
+//    @NotEmpty
     private Integer age;
 
     @Column(name = "Email", nullable = false)
@@ -57,6 +57,8 @@ public class UserEntity implements Serializable {
     @NotNull
     @NotEmpty
     private String password;
+
+    @Transient
     private String matchingPassword;
 
     public Long getId() {
