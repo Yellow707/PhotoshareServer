@@ -103,7 +103,7 @@ public class UserDAO {
         TypedQuery<UserEntity> userWithEmail = entityManager.createQuery(dbEmail);
         List userList = userWithEmail.getResultList();
 
-        if (userList != null) {
+        if (userList.size() != 0) {
             Object object = userList.get(0);
             UserEntity user = (UserEntity) object;
             if (user.getPassword().equals(password)) {
@@ -112,8 +112,6 @@ public class UserDAO {
                 return false;
             }
         }
-
         return false;
     }
-
 }
