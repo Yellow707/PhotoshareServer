@@ -48,4 +48,10 @@ public class UserService implements IUserService {
         this.userDAO.removePerson(id);
     }
 
+    @Override
+    @Transactional
+    public boolean authUser(String email, String password) {
+       return this.userDAO.authUser(email, password);
+    }
+
 }

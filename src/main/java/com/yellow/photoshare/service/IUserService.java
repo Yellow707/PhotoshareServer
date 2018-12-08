@@ -11,5 +11,6 @@ public interface IUserService {
     List<UserEntity> listPersons();
     UserEntity getPersonByUsername(String username);
     void removePerson(Long id);
+    boolean authUser(String email, String password);
 
 }

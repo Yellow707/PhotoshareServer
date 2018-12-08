@@ -95,4 +95,25 @@ public class UserDAO {
         logger.info("Person deleted successfully, person details="+ userEntity);
     }
 
+    public boolean authUser(String email, String password) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
+        Root<UserEntity> rootEntry = cq.from(UserEntity.class);
+        CriteriaQuery<UserEntity> dbEmail = cq.select(rootEntry).where(cb.equal(rootEntry.get("email"), email));
+        TypedQuery<UserEntity> userWithEmail = entityManager.createQuery(dbEmail);
+        List userList = userWithEmail.getResultList();
+
+        if (userList != null) {
+            Object object = userList.get(0);
+            UserEntity user = (UserEntity) object;
+            if (user.getPassword().equals(password)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
 }

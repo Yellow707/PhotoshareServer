@@ -27,12 +27,33 @@ public class WebController {
         return "registration";
     }
 
+    @GetMapping("/auth")
+    public String authentification() {
+
+        return "authentification";
+    }
+
     @PostMapping("/registration/done")
     public @ResponseBody String registrationRequest(@Valid UserEntity userEntity) {
         String name = userEntity.getName();
         this.userService.addPerson(userEntity);
         System.out.println("Hello, " + name);
         return "registration";
+    }
+
+    @PostMapping("/auth/done")
+    public @ResponseBody String authRequest(String email, String password) {
+        System.out.println(email);
+        System.out.println(password);
+        if (this.userService.authUser(email, password)) {
+            return "Auth done";
+        } else {
+            return "Try again";
+        }
+//        String name = userEntity.getName();
+//        this.userService.addPerson(userEntity);
+//        System.out.println("Hello, " + name);
+//        return "registration";
     }
 
 }
