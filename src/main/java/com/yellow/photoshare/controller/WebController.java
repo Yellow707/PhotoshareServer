@@ -36,9 +36,12 @@ public class WebController {
     @PostMapping("/registration/done")
     public @ResponseBody String registrationRequest(@Valid UserEntity userEntity) {
         String name = userEntity.getName();
-        this.userService.addPerson(userEntity);
-        System.out.println("Hello, " + name);
-        return "registration";
+        if (this.userService.addPerson(userEntity)) {
+            System.out.println("Hello, " + name);
+            return "registration";
+        } else {
+            return "Try again";
+        }
     }
 
     @PostMapping("/auth/done")

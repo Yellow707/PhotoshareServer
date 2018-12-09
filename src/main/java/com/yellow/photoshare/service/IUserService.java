@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IUserService {
 
-    void addPerson(UserEntity userEntity);
+    boolean addPerson(UserEntity userEntity);
     void updatePerson(UserEntity userEntity);
     List<UserEntity> listPersons();
     UserEntity getPersonByUsername(String username);

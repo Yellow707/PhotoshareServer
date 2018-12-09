@@ -20,8 +20,8 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public void addPerson(UserEntity userEntity) {
-        this.userDAO.addPerson(userEntity);
+    public boolean addPerson(UserEntity userEntity) {
+        return this.userDAO.addPerson(userEntity);
     }
 
     @Override
