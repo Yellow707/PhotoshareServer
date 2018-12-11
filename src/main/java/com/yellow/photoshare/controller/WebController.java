@@ -29,7 +29,6 @@ public class WebController {
 
     @GetMapping("/auth")
     public String authentification() {
-
         return "authentification";
     }
 
@@ -53,10 +52,5 @@ public class WebController {
         } else {
             return "Try again";
         }
-//        String name = userEntity.getName();
-//        this.userService.addPerson(userEntity);
-//        System.out.println("Hello, " + name);
-//        return "registration";
     }
-
 }
