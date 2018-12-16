@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity(name = "UserEntity")
 @Table(name="Users")
@@ -60,6 +61,9 @@ public class UserEntity implements Serializable {
 
     @Transient
     private String matchingPassword;
+
+    @OneToMany
+    private Set<TaskEntity> task;
 
     public Long getId() {
         return id;

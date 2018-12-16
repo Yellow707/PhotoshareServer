@@ -2,9 +2,7 @@ package com.yellow.photoshare.entity;
 
 import org.hibernate.search.annotations.Field;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,6 +14,11 @@ import java.io.Serializable;
 public class TaskEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @Column(name = "Title", nullable = false)
     @Field
@@ -34,6 +37,14 @@ public class TaskEntity implements Serializable {
     @NotNull
     @NotEmpty
     private String date;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

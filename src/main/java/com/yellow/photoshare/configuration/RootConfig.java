@@ -28,6 +28,7 @@ public class RootConfig {
         lcemfb.setJpaVendorAdapter(getJpaVendorAdapter());
         lcemfb.setDataSource(getDataSource());
         lcemfb.setPersistenceUnitName("UserEntity");
+//        lcemfb.setPersistenceUnitName("TaskEntity");
         lcemfb.setPackagesToScan("com.yellow.photoshare");
         lcemfb.setJpaProperties(additionalProperties());
         return lcemfb;

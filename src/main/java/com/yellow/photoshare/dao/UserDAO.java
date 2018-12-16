@@ -48,7 +48,6 @@ public class UserDAO {
         logger.info("Person updated successfully, Person Details="+ userEntity);
     }
 
-    @SuppressWarnings("unchecked")
     public List<UserEntity> listPersons() {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
