@@ -43,8 +43,6 @@ public class UserEntity implements Serializable {
     @NumericField
     @Field
     @Column(name = "Age", nullable = false)
-//    @NotNull
-//    @NotEmpty
     private Integer age;
 
     @Column(name = "Email", nullable = false)
@@ -62,8 +60,18 @@ public class UserEntity implements Serializable {
     @Transient
     private String matchingPassword;
 
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private Set<TaskEntity> task;
+
+    public void addComment(TaskEntity taskEntity) {
+        comments.add(comment);
+        comment.setPost(this);
+    }
+
+    public void removeComment(PostComment comment) {
+        comments.remove(comment);
+        comment.setPost(null);
+    }
 
     public Long getId() {
         return id;
@@ -127,5 +135,13 @@ public class UserEntity implements Serializable {
 
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
+    }
+
+    public Set<TaskEntity> getTask() {
+        return task;
+    }
+
+    public void setTask(Set<TaskEntity> task) {
+        this.task = task;
     }
 }

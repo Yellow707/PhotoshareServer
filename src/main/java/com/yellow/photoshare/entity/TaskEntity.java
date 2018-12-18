@@ -38,6 +38,10 @@ public class TaskEntity implements Serializable {
     @NotEmpty
     private String date;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userEntity;
+
     public Long getId() {
         return id;
     }
@@ -68,6 +72,14 @@ public class TaskEntity implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
 }
