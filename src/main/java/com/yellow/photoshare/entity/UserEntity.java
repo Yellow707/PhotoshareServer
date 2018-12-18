@@ -63,14 +63,14 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private Set<TaskEntity> task;
 
-    public void addComment(TaskEntity taskEntity) {
-        comments.add(comment);
-        comment.setPost(this);
+    public void addTask(TaskEntity taskEntity) {
+        task.add(taskEntity);
+        taskEntity.setUserEntity(this);
     }
 
-    public void removeComment(PostComment comment) {
-        comments.remove(comment);
-        comment.setPost(null);
+    public void removeTask(TaskEntity taskEntity) {
+        task.remove(taskEntity);
+        taskEntity.setUserEntity(null);
     }
 
     public Long getId() {
