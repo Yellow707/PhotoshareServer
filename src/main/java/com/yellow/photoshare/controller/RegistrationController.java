@@ -42,9 +42,4 @@ public class RegistrationController {
     public void delete (@RequestParam("id") Long id) {
         this.userService.removePerson(id);
     }
-
-
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.yellow.photoshare.controller;
 
+import com.yellow.photoshare.entity.TaskEntity;
 import com.yellow.photoshare.entity.UserEntity;
 import com.yellow.photoshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,23 @@ public class WebController {
 
     @GetMapping("/registration")
     public String registration() {
-
         return "registration";
     }
 
     @GetMapping("/auth")
     public String authentification() {
         return "authentification";
+    }
+
+    @GetMapping("/task/add")
+    public String newTask() {
+        return "newtask";
+    }
+
+    @PostMapping("/task/add/done")
+    public @ResponseBody String addTask(TaskEntity taskEntity) {
+        this.userService.addTask(taskEntity);
+        return "Task successfully added";
     }
 
     @PostMapping("/registration/done")

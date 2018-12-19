@@ -1,5 +1,6 @@
 package com.yellow.photoshare.dao;
 
+import com.yellow.photoshare.entity.TaskEntity;
 import com.yellow.photoshare.entity.UserEntity;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -24,6 +25,13 @@ public class UserDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    public boolean addTask(TaskEntity taskEntity) {
+        UserEntity userEntity = entityManager.find(UserEntity.class,Long.valueOf(1));
+        userEntity.addTask(taskEntity);
+        entityManager.merge(userEntity);
+        return true;
+    }
 
 //    @Override
     public boolean addPerson(UserEntity userEntity) {

@@ -1,5 +1,6 @@
 package com.yellow.photoshare.service;
 
+import com.yellow.photoshare.entity.TaskEntity;
 import com.yellow.photoshare.entity.UserEntity;
 
 import java.util.List;
@@ -12,5 +13,6 @@ public interface IUserService {
     UserEntity getPersonByUsername(String username);
     void removePerson(Long id);
     boolean authUser(String email, String password);
+    boolean addTask(TaskEntity taskEntity);
 
 }
