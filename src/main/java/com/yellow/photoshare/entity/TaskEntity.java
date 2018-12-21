@@ -1,16 +1,17 @@
 package com.yellow.photoshare.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
+import java.util.Date;
 
 
 @Entity(name = "TaskEntity")
-@Table(name="Task")
+@Table(name="Tasks")
 public class TaskEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,11 +33,11 @@ public class TaskEntity implements Serializable {
     @NotEmpty
     private String description;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Date", nullable = false)
     @Field
-    @NotNull
-    @NotEmpty
-    private String date;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -66,20 +67,20 @@ public class TaskEntity implements Serializable {
         this.description = description;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public UserEntity getUserEntity() {
         return userEntity;
     }
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }
