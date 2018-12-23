@@ -61,4 +61,10 @@ public class UserService implements IUserService {
         return this.userDAO.addTask(taskEntity, userID);
     }
 
+    @Override
+    @Transactional
+    public List getTasksList(Long userID) {
+        return this.userDAO.getTasksList(userID);
+    }
+
 }

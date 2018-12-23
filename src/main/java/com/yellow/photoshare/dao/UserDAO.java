@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -31,6 +32,17 @@ public class UserDAO {
         userEntity.addTask(taskEntity);
         entityManager.merge(userEntity);
         return true;
+    }
+
+    public List getTasksList(Long userID) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<TaskEntity> cq = cb.createQuery(TaskEntity.class);
+        Root<TaskEntity> rootEntry = cq.from(TaskEntity.class);
+        CriteriaQuery<TaskEntity> dbEmail = cq.select(rootEntry).where(cb.equal(rootEntry.get("userEntity"), userID));
+        TypedQuery<TaskEntity> userWithEmail = entityManager.createQuery(dbEmail);
+        List userList = userWithEmail.getResultList();
+
+        return userList;
     }
 
 //    @Override

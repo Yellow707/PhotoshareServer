@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -44,6 +44,22 @@ public class APIController {
             return Collections.singletonMap("status", "error");
         }
     }
+
+    @PostMapping("api/getTasksList")
+    public List getTasksList (@RequestBody Long userID ) {
+        List<TaskEntity> tasksList = this.userService.getTasksList(userID);
+//        List<TaskEntity> tasksListImprove = new
+        for (int i = 0; i < tasksList.size(); i++) {
+            tasksList.get(i).setUserEntity(null);
+        }
+//        JSONArray tasksListJSON = new JSONArray(tasksList);
+
+
+
+        return tasksList;
+    }
+
+
 
 //    @PostMapping("api/getUserData")
 //    public Map getUserData (@RequestBody String title, String description, Long userID) {
