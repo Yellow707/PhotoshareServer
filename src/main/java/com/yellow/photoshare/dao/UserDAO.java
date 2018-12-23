@@ -27,7 +27,7 @@ public class UserDAO {
     private EntityManager entityManager;
 
     public boolean addTask(TaskEntity taskEntity) {
-        UserEntity userEntity = entityManager.find(UserEntity.class,Long.valueOf(1));
+        UserEntity userEntity = entityManager.find(UserEntity.class,1L);
         userEntity.addTask(taskEntity);
         entityManager.merge(userEntity);
         return true;
