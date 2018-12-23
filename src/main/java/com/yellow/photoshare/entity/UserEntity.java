@@ -2,7 +2,6 @@ package com.yellow.photoshare.entity;
 
 import com.yellow.photoshare.validation.PasswordMatches;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.NumericField;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
@@ -27,23 +26,6 @@ public class UserEntity implements Serializable {
     @NotNull
     @NotEmpty
     private String name;
-
-    @Column(name = "Surname", nullable = false)
-    @Field
-    @NotNull
-    @NotEmpty
-    private String surname;
-
-    @Column(name = "Username", nullable = false)
-    @Field
-    @NotNull
-    @NotEmpty
-    private String username;
-
-    @NumericField
-    @Field
-    @Column(name = "Age", nullable = false)
-    private Integer age;
 
     @Column(name = "Email", nullable = false)
     @Field
@@ -87,30 +69,6 @@ public class UserEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public String getEmail() {
