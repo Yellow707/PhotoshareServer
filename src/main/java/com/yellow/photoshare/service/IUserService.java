@@ -13,6 +13,6 @@ public interface IUserService {
     UserEntity getPersonByUsername(String username);
     void removePerson(Long id);
     boolean authUser(String email, String password);
-    boolean addTask(TaskEntity taskEntity);
+    boolean addTask(TaskEntity taskEntity, Long userID);
 
 }

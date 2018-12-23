@@ -57,8 +57,8 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public boolean addTask(TaskEntity taskEntity) {
-        return this.userDAO.addTask(taskEntity);
+    public boolean addTask(TaskEntity taskEntity, Long userID) {
+        return this.userDAO.addTask(taskEntity, userID);
     }
 
 }

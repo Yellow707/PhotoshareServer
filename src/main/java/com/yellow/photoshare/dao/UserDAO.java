@@ -26,8 +26,8 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public boolean addTask(TaskEntity taskEntity) {
-        UserEntity userEntity = entityManager.find(UserEntity.class,1L);
+    public boolean addTask(TaskEntity taskEntity, Long userID) {
+        UserEntity userEntity = entityManager.find(UserEntity.class, userID);
         userEntity.addTask(taskEntity);
         entityManager.merge(userEntity);
         return true;

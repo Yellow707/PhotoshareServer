@@ -39,7 +39,7 @@ public class WebController {
 
     @PostMapping("/task/add/done")
     public @ResponseBody String addTask(TaskEntity taskEntity) {
-        this.userService.addTask(taskEntity);
+        this.userService.addTask(taskEntity, 1L);
         return "Task successfully added";
     }
 

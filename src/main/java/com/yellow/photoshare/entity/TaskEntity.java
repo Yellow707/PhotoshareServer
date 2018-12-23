@@ -1,5 +1,6 @@
 package com.yellow.photoshare.entity;
 
+import javafx.concurrent.Task;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.search.annotations.Field;
 
@@ -42,6 +43,15 @@ public class TaskEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
+
+    public TaskEntity() {
+
+    }
+
+    public TaskEntity(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;

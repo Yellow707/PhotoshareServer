@@ -1,12 +1,18 @@
 package com.yellow.photoshare.controller;
 
+import com.yellow.photoshare.dto.TaskDTO;
+import com.yellow.photoshare.entity.TaskEntity;
 import com.yellow.photoshare.entity.UserEntity;
 import com.yellow.photoshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
+import java.util.Map;
 
 @RestController
 public class APIController {
@@ -20,10 +26,34 @@ public class APIController {
     }
 
     @PostMapping("api/registration")
-    public String registrationController (@RequestBody UserEntity userEntity) {
-        String name = userEntity.getName();
-        this.userService.addPerson(userEntity);
-        return "Hello, " + name;
+    public Map registration (@RequestBody UserEntity userEntity) {
+        if (this.userService.addPerson(userEntity)) {
+            return Collections.singletonMap("status", "success");
+        } else {
+            return Collections.singletonMap("status", "error");
+        }
     }
+
+    @PostMapping("api/createTask")
+    public Map createTask (@RequestBody TaskDTO taskDTO) {
+        TaskEntity taskEntity = new TaskEntity(taskDTO.getTitle(), taskDTO.getDescription());
+
+        if (this.userService.addTask(taskEntity, taskDTO.getUserID())) {
+            return Collections.singletonMap("status", "success");
+        } else {
+            return Collections.singletonMap("status", "error");
+        }
+    }
+
+//    @PostMapping("api/getUserData")
+//    public Map getUserData (@RequestBody String title, String description, Long userID) {
+//        TaskEntity taskEntity = new TaskEntity(title, description);
+//
+//        if (this.userService.addTask(taskEntity, userID)) {
+//            return Collections.singletonMap("status", "success");
+//        } else {
+//            return Collections.singletonMap("status", "error");
+//        }
+//    }
 
 }
