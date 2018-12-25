@@ -6,6 +6,7 @@ import com.yellow.photoshare.entity.UserEntity;
 import com.yellow.photoshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,17 +47,32 @@ public class APIController {
     }
 
     @PostMapping("api/getTasksList")
-    public List getTasksList (@RequestBody Long userID ) {
+    public List getTasksList (@RequestBody Map<String,Long> response) {
+        Long userID = response.get("userID");
         List<TaskEntity> tasksList = this.userService.getTasksList(userID);
 //        List<TaskEntity> tasksListImprove = new
         for (int i = 0; i < tasksList.size(); i++) {
             tasksList.get(i).setUserEntity(null);
         }
 //        JSONArray tasksListJSON = new JSONArray(tasksList);
-
-
-
         return tasksList;
+    }
+
+    @PostMapping("api/deleteTask")
+    public Map deleteTask (@RequestBody Map<String,Long> response) {
+        Long taskID = response.get("taskID");
+        if (this.userService.deleteTask(taskID) {
+            return Collections.singletonMap("status", "success");
+        } else {
+            return Collections.singletonMap("status", "error");
+        }
+//        List<TaskEntity> tasksList = this.userService.getTasksList(userID);
+//        List<TaskEntity> tasksListImprove = new
+//        for (int i = 0; i < tasksList.size(); i++) {
+//            tasksList.get(i).setUserEntity(null);
+//        }
+////        JSONArray tasksListJSON = new JSONArray(tasksList);
+//        return tasksList;
     }
 
 

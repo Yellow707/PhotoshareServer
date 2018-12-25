@@ -19,7 +19,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="photoshare_main" />
+    <orderEntry type="module" module-name="com.yellow.photoshare.main" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-search-orm:5.10.4.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-entitymanager:5.3.7.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-jpa:2.1.0.RELEASE" level="project" />
@@ -116,5 +116,5 @@
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.11.1" level="project" />
     <orderEntry type="library" name="Gradle: org.ow2.asm:asm:5.0.4" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="photoshare_main" />
+  <component name="TestModuleProperties" production-module="com.yellow.photoshare.main" />
 </module>
