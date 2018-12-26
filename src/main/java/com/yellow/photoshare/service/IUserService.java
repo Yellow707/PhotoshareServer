@@ -15,5 +15,6 @@ public interface IUserService {
     boolean authUser(String email, String password);
     boolean addTask(TaskEntity taskEntity, Long userID);
     List<TaskEntity> getTasksList(Long userID);
+    boolean deleteTask(Long taskID);
 
 }

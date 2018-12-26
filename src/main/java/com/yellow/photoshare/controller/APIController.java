@@ -59,13 +59,14 @@ public class APIController {
     }
 
     @PostMapping("api/deleteTask")
-    public Map deleteTask (@RequestBody Map<String,Long> response) {
+    public void deleteTask (@RequestBody Map<String,Long> response) {
         Long taskID = response.get("taskID");
-        if (this.userService.deleteTask(taskID) {
-            return Collections.singletonMap("status", "success");
-        } else {
-            return Collections.singletonMap("status", "error");
-        }
+        this.userService.deleteTask(taskID);
+//        if (this.userService.deleteTask(taskID) {
+//            return Collections.singletonMap("status", "success");
+//        } else {
+//            return Collections.singletonMap("status", "error");
+//        }
 //        List<TaskEntity> tasksList = this.userService.getTasksList(userID);
 //        List<TaskEntity> tasksListImprove = new
 //        for (int i = 0; i < tasksList.size(); i++) {

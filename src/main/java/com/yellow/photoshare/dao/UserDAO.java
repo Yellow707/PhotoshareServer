@@ -45,6 +45,16 @@ public class UserDAO {
         return userList;
     }
 
+    public boolean deleteTask(Long taskID) {
+        TaskEntity taskEntity = entityManager.find(TaskEntity.class, taskID);
+        if(null != taskEntity){
+            entityManager.remove(taskEntity);
+        }
+
+
+        return true;
+    }
+
 //    @Override
     public boolean addPerson(UserEntity userEntity) {
 
