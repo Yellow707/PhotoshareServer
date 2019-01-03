@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class WebController {
@@ -39,9 +41,21 @@ public class WebController {
 
     @PostMapping("/task/add/done")
     public @ResponseBody String addTask(TaskEntity taskEntity) {
-        this.userService.addTask(taskEntity, 1L);
+        this.userService.addTask(taskEntity, 9L);
         return "Task successfully added";
     }
+//
+//    @PostMapping("api/getTasksList")
+////    public List getTasksList (@RequestBody Long userID) {
+//////        Long userID = response.get("userID");
+////        List<TaskEntity> tasksList = this.userService.getTasksList(userID);
+//////        List<TaskEntity> tasksListImprove = new
+////        for (int i = 0; i < tasksList.size(); i++) {
+////            tasksList.get(i).setUserEntity(null);
+////        }
+//////        JSONArray tasksListJSON = new JSONArray(tasksList);
+////        return tasksList;
+////    }
 
     @PostMapping("/registration/done")
     public @ResponseBody String registrationRequest(@Valid UserEntity userEntity) {
