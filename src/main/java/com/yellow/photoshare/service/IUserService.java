@@ -2,9 +2,11 @@ package com.yellow.photoshare.service;
 
 import com.yellow.photoshare.entity.TaskEntity;
 import com.yellow.photoshare.entity.UserEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface IUserService {
 
     boolean addPerson(UserEntity userEntity);

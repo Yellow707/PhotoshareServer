@@ -55,6 +55,17 @@ public class UserEntity implements Serializable {
         taskEntity.setUserEntity(null);
     }
 
+    public UserEntity() {
+
+    }
+
+    public UserEntity(String name, String email, String password, String matchingPassword) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.matchingPassword = matchingPassword;
+    }
+
     public Long getId() {
         return id;
     }
